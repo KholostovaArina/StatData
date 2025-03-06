@@ -1,3 +1,5 @@
-com\mycompany\statdata\DataWorker.class
-com\mycompany\statdata\StatData.class
+com\mycompany\statdata\StatIndicators.class
 com\mycompany\statdata\View.class
+com\mycompany\statdata\Reader.class
+com\mycompany\statdata\StatData.class
+FileInputStream.class

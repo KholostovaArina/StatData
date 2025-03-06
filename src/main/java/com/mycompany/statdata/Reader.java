@@ -1,0 +1,58 @@
+package com.mycompany.statdata;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Reader {
+
+     public static Map<String, double[]> makeHashMapFromFile(String inputFileName) {
+        Map<String, double[]> resultMap = new HashMap<>();
+
+        try (FileInputStream fis = new FileInputStream(inputFileName); Workbook workbook = new XSSFWorkbook(fis)) {
+            Sheet inputSheet = workbook.getSheetAt(0);
+
+            if (inputSheet.getPhysicalNumberOfRows() == 0) {
+                return resultMap; // Если лист пустой, возвращаем пустую карту
+            }
+
+            int columnCount = inputSheet.getRow(0).getPhysicalNumberOfCells();
+            int rowCount = inputSheet.getPhysicalNumberOfRows();
+            System.out.println(columnCount);//3
+            System.out.println(rowCount);//101
+            
+            for (int k = 0; k < columnCount; k++) {
+                double[] selection = new double[rowCount - 1];
+                for (int i=0; i < rowCount-1;i++){
+                    try{
+                        selection[i] = inputSheet.getRow(i+1).getCell(k).getNumericCellValue();
+                    } catch(Exception e){
+                        selection[i] = 1000;
+                    }
+                }
+
+                resultMap.put(inputSheet.getRow(0).getCell(k).toString(), selection);
+                System.out.println(inputSheet.getRow(0).getCell(k).toString());
+                       
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resultMap;
+    }
+//    public static List<Double> deleteNulls(List<Double> sheetData) {
+//        List<Double> filteredData = new ArrayList<>();
+//        
+//        for (Double value : sheetData) {
+//            if (value != null) {
+//                filteredData.add(value);
+//            }
+//        } 
+//        return filteredData;
+//    }
+
+
+}
