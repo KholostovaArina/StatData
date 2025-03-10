@@ -1,19 +1,74 @@
 package com.mycompany.statdata;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class Controller {
+    private String inputString = "C:\\Users\\GOSPOGA\\OneDrive\\Рабочий стол\\Лаба_1 образцы данных.xlsx"; 
+    private  Map<String, double[]> data = new HashMap<>();
+    private  List<Map<String, Object>> statData = new ArrayList<>();
+    
     public Controller(){
         View view = new View();
         view.frame.setVisible(true);
-             
-       // String inputFileName= view.getFileName("C:\\Users\\GOSPOGA\\OneDrive\\Рабочий стол\\Лаба_1 образцы данных.xlsx");
-        Map<String, double[]> data = DataImport.makeHashMapFromFile("C:\\Users\\GOSPOGA\\OneDrive\\Рабочий стол\\Лаба_1 образцы данных.xlsx");    
-        List<Map<String, Object>> statData = StatTable.generateStatTable(data);
-         
-        //передать стат дату в view
-        String outputFileName;
-        DataExport export = new DataExport(statData, outputFileName);
+        
+        view.inputButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String enteredText = JOptionPane.showInputDialog(view.frame, "Введите ссылку на файл:",
+                                                                 "Ввод ссылки", JOptionPane.PLAIN_MESSAGE);
+                
+                if (enteredText != null && !enteredText.trim().isEmpty()) {
+                    inputString = enteredText.trim(); 
+                }
+                view.filePathField.setText(inputString); 
+                view.inputButton.setEnabled(false);
+                view.processButton.setEnabled(true);
+                
+                data = DataImport.makeHashMapFromFile(inputString);           
+            }
+        });
+        
+        
+        view.processButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(view.frame, "Данные обработаны успешно!",
+                                              "Статус обработки", JOptionPane.INFORMATION_MESSAGE);
+                view.processButton.setEnabled(false);
+                view.writeButton.setEnabled(true);
+                statData = StatTable.generateStatTable(data);
+            }
+        });
+        
+        
+        view.writeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Сохранить как...");
+                int userSelection = fileChooser.showSaveDialog(view.frame);
+
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    File fileToSave = fileChooser.getSelectedFile();
+                    String outputFileName = fileToSave.getAbsolutePath();
+
+                    JOptionPane.showMessageDialog(view.frame, "Данные записаны успешно!",
+                            "Статус обработки", JOptionPane.INFORMATION_MESSAGE);
+                    view.writeButton.setEnabled(false);
+                    
+                    DataExport.export(statData, outputFileName);
+                }
+            }
+        });
+        view.frame.getDefaultCloseOperation();// hgvbnmklkjhbvbjkijb bhjhbbhj
+        
     }
 }

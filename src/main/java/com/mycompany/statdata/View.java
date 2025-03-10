@@ -1,4 +1,3 @@
-
 package com.mycompany.statdata;
 
 import java.awt.*;
@@ -7,24 +6,38 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class View {
+    
     protected JFrame frame;
-    public  View(){
+    protected JButton inputButton;
+    protected JButton processButton;
+    protected JButton writeButton;
+    protected JTextField filePathField;
+    
+    public View() {
         
         frame = new JFrame("Интерфейс для создания статистических данных из вашего файла");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(200, 200);
-        frame.setLayout(new BorderLayout());
+        frame.setSize(600, 200);  
+        frame.setLayout(new GridLayout(4, 1));
 
-        JButton button = new JButton("Прочитать данные");        
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               JOptionPane.showMessageDialog(frame, "Файл успешно прочитан");
-            }
-        });
-
-        frame.add(button, BorderLayout.CENTER);
-
-        //frame.setVisible(true);
+        filePathField = new JTextField();
+        filePathField.setEditable(false);
+        
+        inputButton = new JButton("Прочитать данные");
+        
+        processButton = new JButton("Обработать данные");
+        processButton.setEnabled(false);
+        
+        writeButton = new JButton("Заисать данные в файл");
+        writeButton.setEnabled(false);
+        
+        
+        frame.add(inputButton);
+        frame.add(filePathField);
+        frame.add(processButton);
+        frame.add(writeButton);
+       
     }
+
 }
+

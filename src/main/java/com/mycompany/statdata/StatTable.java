@@ -17,9 +17,10 @@ public class StatTable {
             
             Map<String, Object> stats = StatIndicators.calculateStatIndicators(data);
             
-            stats.put("sample Name", sampleName);
+           stats.put("sample", sampleName);
           
             table.add(stats);
+            System.out.println(stats.toString());
         }
         return table;
     }

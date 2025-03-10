@@ -52,6 +52,6 @@ public class StatIndicators {
         double lowBorder = mean - marginOfError;
         double upperBorder = mean + marginOfError;
 
-        return "Доверительный интервал: [" + lowBorder + ", " + upperBorder + "]";
+        return "[" + lowBorder + ", " + upperBorder + "]";
     }
 }
