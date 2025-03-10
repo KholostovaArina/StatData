@@ -14,21 +14,16 @@ public class View {
         frame.setSize(400, 400);
         frame.setLayout(new BorderLayout());
 
-        JButton button = new JButton("Прочитать данные");
-        
+        JButton button = new JButton("Прочитать данные");        
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-              
-
+                JOptionPane.showMessageDialog(frame, "Кнопка была нажата");
             }
         });
 
-       
         frame.add(button, BorderLayout.CENTER);
 
-        
         frame.setVisible(true);
     }
 }

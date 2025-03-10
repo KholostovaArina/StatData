@@ -1,7 +1,7 @@
 com\mycompany\statdata\StatIndicators.class
 com\mycompany\statdata\View.class
 com\mycompany\statdata\MyStatData.class
-com\mycompany\statdata\Reader.class
 com\mycompany\statdata\View$1.class
+com\mycompany\statdata\StatTable.class
+com\mycompany\statdata\DataImport.class
 com\mycompany\statdata\Controller.class
-FileInputStream.class

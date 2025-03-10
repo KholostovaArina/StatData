@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Reader {
+public class DataImport {
 
      public static Map<String, double[]> makeHashMapFromFile(String inputFileName) {
         Map<String, double[]> resultMap = new HashMap<>();
@@ -43,16 +43,4 @@ public class Reader {
 
         return resultMap;
     }
-//    public static List<Double> deleteNulls(List<Double> sheetData) {
-//        List<Double> filteredData = new ArrayList<>();
-//        
-//        for (Double value : sheetData) {
-//            if (value != null) {
-//                filteredData.add(value);
-//            }
-//        } 
-//        return filteredData;
-//    }
-
-
 }

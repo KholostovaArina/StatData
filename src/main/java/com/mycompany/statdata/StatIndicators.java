@@ -1,67 +1,57 @@
 package com.mycompany.statdata;
 
-
 import static java.lang.Math.sqrt;
 import org.apache.commons.math3.distribution.TDistribution;
-import org.apache.commons.math3.stat.*;
+import org.apache.commons.math3.stat.StatUtils;
+import java.util.HashMap;
+import java.util.Map;
 
-
-
-
-//5. Рассчитать коэффициенты ковариации для всех пар случайных чисел
-
-
-
+// 5. Рассчитать коэффициенты ковариации для всех пар случайных чисел
 public class StatIndicators {
-    
-    public static double meanGeom(double[] data) {
-         return StatUtils.geometricMean(data);
+
+    public static String[] nameStatIndicators() {
+        String[] names = {"mean", "geometric mean", "min", "max", "N", "R", "variance",
+            "standard deviation", "K variance", "Confidence interval"};
+        return names;
     }
-    
-    
-    public static double mean(double[] data) {
-         return StatUtils.mean(data);
+
+    public static Map<String, Object> calculateStatIndicators(double[] data) {
+        double mean = StatUtils.mean(data);
+        double geomMean = StatUtils.geometricMean(data);
+        int N = data.length;
+        double R = StatUtils.max(data) - StatUtils.min(data);
+        double min = StatUtils.min(data);
+        double max = StatUtils.max(data);
+        double var = StatUtils.variance(data);
+        double sd = sqrt(var);
+        double k_var = var / mean;
+
+        
+        Map<String, Object> results = new HashMap<>();
+        results.put("mean", mean);
+        results.put("geometric mean", geomMean);
+        results.put("min", min);
+        results.put("max", max);
+        results.put("N", N);
+        results.put("R", R);
+        results.put("variance", var);
+        results.put("standard deviation", sd);
+        results.put("K variance", k_var);
+        results.put("Confidence interval", confInterval(data, mean, var, N));
+
+        return results;
     }
-    
-    public static int N (double[] data){
-        return data.length;
-    }
-    
-    public static double R(double[] data) {
-        return StatUtils.max(data) - StatUtils.min(data);
-    }
-    
-    public static double min(double[] data) {
-        return StatUtils.min(data);
-    }
-    
-    public static double max(double[] data) {
-        return StatUtils.max(data);
-    }
-    
-    public static double sd(double[] data){
-        return sqrt(StatUtils.variance(data));
-    }
-    
-    public static double k_var(double[] data) {
-        return var(data)/mean(data);
-    }
-    
-    public static double var(double[] data) {
-        return StatUtils.variance(data);
-    }
-    
-    public static String confInterval(double[] data){
+
+    private static String confInterval(double[] data, double mean, double var, int N) {
         double confidenceLevel = 0.95;
         // Т-критерий
-        TDistribution tDist = new TDistribution(N(data) - 1);
+        TDistribution tDist = new TDistribution(N - 1);
         double t = tDist.inverseCumulativeProbability((1 + confidenceLevel) / 2);
-        
-        double marginOfError = t * sqrt(var(data)/N(data));
-        
-        double lowBorder = mean(data) -marginOfError;
-        double upperBorder = mean(data) + marginOfError;
-        
-        return ("Доверительный интервал: [" + lowBorder + "," + upperBorder + "]");  
+
+        double marginOfError = t * sqrt(var / N);
+        double lowBorder = mean - marginOfError;
+        double upperBorder = mean + marginOfError;
+
+        return "Доверительный интервал: [" + lowBorder + ", " + upperBorder + "]";
     }
 }
