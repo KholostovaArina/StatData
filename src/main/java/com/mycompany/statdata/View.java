@@ -7,23 +7,24 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class View {
-    public void View(){
+    protected JFrame frame;
+    public  View(){
         
-        JFrame frame = new JFrame("Интерфейс для создания статистических данных из вашего файла");
+        frame = new JFrame("Интерфейс для создания статистических данных из вашего файла");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+        frame.setSize(200, 200);
         frame.setLayout(new BorderLayout());
 
         JButton button = new JButton("Прочитать данные");        
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(frame, "Кнопка была нажата");
+               JOptionPane.showMessageDialog(frame, "Файл успешно прочитан");
             }
         });
 
         frame.add(button, BorderLayout.CENTER);
 
-        frame.setVisible(true);
+        //frame.setVisible(true);
     }
 }
