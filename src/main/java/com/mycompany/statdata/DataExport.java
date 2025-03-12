@@ -8,16 +8,19 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataExport {
+    Workbook workbook;
 
-    public static void export(List<Map<String, Object>> data, String filePath) {
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet("Statistical Data");
+    public DataExport() {
+        this.workbook = new XSSFWorkbook();
+    }
+
+    public void export(List<Map<String, Object>> data, String filePath, String sheetName) {
+        Sheet sheet = workbook.createSheet(sheetName);
 
         if (data.isEmpty()) {
             throw new IllegalArgumentException("The data list cannot be empty");
         }
 
-        // Create header row, ensuring "Sample" is the first column
         Row headerRow = sheet.createRow(0);
         Map<String, Object> firstEntry = data.get(0);
         int headerCellIndex = 0;
@@ -65,18 +68,21 @@ public class DataExport {
         for (int i = 0; i < headerCellIndex; i++) {
             sheet.autoSizeColumn(i);
         }
+    }
 
-        // Write the output to file
+    public void saveToFile(String filePath) {
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                workbook.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        }
+    }
+
+    public void closeWorkbook() {
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

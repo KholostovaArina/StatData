@@ -23,6 +23,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
-        <exec.mainClass>com.mycompany.statdata.MyStatData</exec.mainClass>
+        <exec.mainClass>com.mycompany.statdata.Laba1</exec.mainClass>
     </properties>
 </project>

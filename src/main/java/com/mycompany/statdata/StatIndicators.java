@@ -3,6 +3,7 @@ package com.mycompany.statdata;
 import static java.lang.Math.sqrt;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.StatUtils;
+//import org.apache.commons.math3.stat.correlation.Covariance;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +26,6 @@ public class StatIndicators {
         double var = StatUtils.variance(data);
         double sd = sqrt(var);
         double k_var = var / mean;
-
         
         Map<String, Object> results = new HashMap<>();
         results.put("mean", mean);
@@ -54,4 +54,11 @@ public class StatIndicators {
 
         return "[" + lowBorder + ", " + upperBorder + "]";
     }
+    
+//    private static double k_covariance(double[] x, double[] y){
+//        Covariance covariance = new Covariance();
+//        return covariance.covariance(x, y);
+//    }
+            
+            
 }

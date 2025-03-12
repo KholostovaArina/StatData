@@ -14,6 +14,7 @@ public class Controller {
     private String inputString = "C:\\Users\\GOSPOGA\\OneDrive\\Рабочий стол\\Лаба_1 образцы данных.xlsx"; 
     private  Map<String, double[]> data = new HashMap<>();
     private  List<Map<String, Object>> statData = new ArrayList<>();
+    private  List<Map<String, Object>> covData = new ArrayList<>();
     
     public Controller(){
         View view = new View();
@@ -44,11 +45,12 @@ public class Controller {
                                               "Статус обработки", JOptionPane.INFORMATION_MESSAGE);
                 view.processButton.setEnabled(false);
                 view.writeButton.setEnabled(true);
+                
                 statData = StatTable.generateStatTable(data);
+                covData = StatTable.generateTableK_Cov(data);
             }
         });
-        
-        
+
         view.writeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,12 +65,20 @@ public class Controller {
                     JOptionPane.showMessageDialog(view.frame, "Данные записаны успешно!",
                             "Статус обработки", JOptionPane.INFORMATION_MESSAGE);
                     view.writeButton.setEnabled(false);
-                    
-                    DataExport.export(statData, outputFileName);
+                    DataExport ex = new DataExport();
+
+                    ex.export(statData, outputFileName, "Статистические показатели");
+                    ex.export(covData, outputFileName, "Таблица коэффициентов ковариации");
+
+                    // Сохраняем все изменения в файл.
+                    ex.saveToFile(outputFileName);
+
+// Закрываем Workbook в самом конце.
+                    ex.closeWorkbook();
                 }
             }
         });
-        view.frame.getDefaultCloseOperation();// hgvbnmklkjhbvbjkijb bhjhbbhj
+       
         
     }
 }
