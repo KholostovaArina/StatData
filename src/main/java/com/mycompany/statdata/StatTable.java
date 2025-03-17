@@ -12,11 +12,11 @@ public class StatTable {
     public static List<Map<String, Object>> generateStatTable(Map<String, double[]> dataSets) {        
         List<Map<String, Object>> table = new ArrayList<>();
       
-        for (Map.Entry<String, double[]> entry : dataSets.entrySet()) {
+       for (Map.Entry<String, double[]> entry : dataSets.entrySet()) {
             String sampleName = entry.getKey();
-            double[] data = entry.getValue();
+            double[] sample = entry.getValue();
             
-            Map<String, Object> stats = StatIndicators.calculateStatIndicators(data);
+            Map<String, Object> stats = StatIndicators.calculateStatIndicators(sample);
             
             stats.put("sample", sampleName);
           
@@ -37,14 +37,15 @@ public class StatTable {
             for (String colKey : keys) {
                 double[] data1 = dataSets.get(rowKey);
                 double[] data2 = dataSets.get(colKey);
-
-                // Вычисление ковариации
+                if (data1 == null || data2 == null || data1.length != data2.length){
+                    row.put(colKey,"-");
+                    continue;
+                }
                 double cov = covarianceCalculator.covariance(data1, data2);
-                row.put(colKey, cov);  // Сохранение в формате Double, не как double[]
+                row.put(colKey, cov);  
             }
 
-            // Добавление имени ряда для удобства
-            row.put("sample", rowKey);//noooooooooooo
+            row.put("sample", rowKey);
 
             table.add(row);
         }

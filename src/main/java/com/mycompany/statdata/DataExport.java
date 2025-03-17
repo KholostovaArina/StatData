@@ -18,13 +18,13 @@ public class DataExport {
         Sheet sheet = workbook.createSheet(sheetName);
 
         if (data.isEmpty()) {
-            throw new IllegalArgumentException("The data list cannot be empty");
+            throw new IllegalArgumentException("Вы экспортируете пустой файл");
         }
 
         Row headerRow = sheet.createRow(0);
         Map<String, Object> firstEntry = data.get(0);
+        
         int headerCellIndex = 0;
-
         if (firstEntry.containsKey("sample")) {
             headerRow.createCell(headerCellIndex++).setCellValue("sample");
         }
@@ -70,19 +70,13 @@ public class DataExport {
         }
     }
 
-    public void saveToFile(String filePath) {
+    public void saveToFile_and_CloseWorkbook(String filePath) {
         try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
             workbook.write(fileOut);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void closeWorkbook() {
-        try {
             workbook.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

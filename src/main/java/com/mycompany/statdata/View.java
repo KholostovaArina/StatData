@@ -11,8 +11,7 @@ public class View {
     protected JButton writeButton;
     protected JTextField filePathField;
     
-    public View() {
-        
+    public View() {    
         frame = new JFrame("Интерфейс для создания статистических данных из вашего файла");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 200);  
@@ -28,7 +27,6 @@ public class View {
         
         
         frame.add(inputButton);
-       // frame.add(filePathField);
         frame.add(processButton);
         frame.add(writeButton);
        

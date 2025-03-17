@@ -3,61 +3,28 @@ package com.mycompany.statdata;
 import static java.lang.Math.sqrt;
 import org.apache.commons.math3.distribution.TDistribution;
 import org.apache.commons.math3.stat.StatUtils;
-//import org.apache.commons.math3.stat.correlation.Covariance;
 import java.util.HashMap;
 import java.util.Map;
 
-// 5. Рассчитать коэффициенты ковариации для всех пар случайных чисел
 public class StatIndicators {
 
-    public static String[] nameStatIndicators() {
+    public static String[] namesStatIndicators() {
         String[] names = {"mean", "geometric mean", "min", "max", "N", "R", "variance",
             "standard deviation", "K variance", "Confidence interval"};
         return names;
     }
 
     public static Map<String, Object> calculateStatIndicators(double[] data) {
-        String mean;
-        String geomMean;
-        String var;
-        String sd;
-        String k_var;
-        
-        try {
-            mean = String.valueOf(StatUtils.mean(data));
-        } catch (Exception e) {
-            mean = "-";
-        }
-
-        try {
-            geomMean = String.valueOf(StatUtils.geometricMean(data));
-        } catch (Exception e) {
-            geomMean = "-";
-        }
-
-        int N = data.length; // Длина массива, может быть полезна для других вычислений
+        double mean = StatUtils.mean(data);
+        double geomMean = StatUtils.geometricMean(data);
+        int N = data.length; 
         double R = StatUtils.max(data) - StatUtils.min(data);
         double min = StatUtils.min(data);
         double max = StatUtils.max(data);
-
-        try {
-            var = String.valueOf(StatUtils.variance(data));
-        } catch (Exception e) {
-            var = "-";
-        }
-
-        try {
-            sd = String.valueOf(sqrt(StatUtils.variance(data)));
-        } catch (Exception e) {
-            sd = "-";
-        }
-
-        try {
-            k_var = String.valueOf(StatUtils.variance(data) * 100 / StatUtils.mean(data))+"%";
-        } catch (Exception e) {
-            k_var = "-";
-        }
-
+        double var = StatUtils.variance(data);
+        double sd = sqrt(StatUtils.variance(data));
+        String k_var = String.valueOf(StatUtils.variance(data) * 100 / StatUtils.mean(data))+"%";
+       
         Map<String, Object> results = new HashMap<>();
         results.put("mean", mean);
         results.put("geometric mean", geomMean);
