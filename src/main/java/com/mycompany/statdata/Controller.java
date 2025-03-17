@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class Controller {
-    private  Map<String, double[]> data = new HashMap<>();
-    private  List<Map<String, Object>> statData = new ArrayList<>();
-    private  List<Map<String, Object>> covData = new ArrayList<>();
+
+    private Map<String, double[]> data = new HashMap<>();
+    private List<Map<String, Object>> statData = new ArrayList<>();
+    private List<Map<String, Object>> covData = new ArrayList<>();
 
     public Controller() {
         View view = new View();
@@ -59,16 +61,25 @@ public class Controller {
             public void actionPerformed(ActionEvent e) {
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Сохранить как...");
+
+                // Уставливаем фильтр на файлы с расширением xlsx
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+                fileChooser.setFileFilter(filter);
+
                 int userSelection = fileChooser.showSaveDialog(view.frame);
 
                 if (userSelection == JFileChooser.APPROVE_OPTION) {
                     File fileToSave = fileChooser.getSelectedFile();
+                    // Добавляем .xlsx к файлу, если пользователь его не указал
                     String outputFileName = fileToSave.getAbsolutePath();
+                    if (!outputFileName.endsWith(".xlsx")) {
+                        outputFileName += ".xlsx";
+                    }
 
                     JOptionPane.showMessageDialog(view.frame, "Данные записаны успешно!",
                             "Статус обработки", JOptionPane.INFORMATION_MESSAGE);
                     view.writeButton.setEnabled(false);
-                   
+
                     DataExport ex = new DataExport();
                     ex.export(statData, outputFileName, "Статистические показатели");
                     ex.export(covData, outputFileName, "Таблица коэффициентов ковариации");
@@ -76,7 +87,6 @@ public class Controller {
                 }
             }
         });
-       
-        
+
     }
 }

@@ -63,8 +63,7 @@ public class DataExport {
                 }
             }
         }
-
-        // Auto-size columns
+        // autoSizeColumn(i)
         for (int i = 0; i < headerCellIndex; i++) {
             sheet.autoSizeColumn(i);
         }
@@ -78,5 +77,4 @@ public class DataExport {
             e.printStackTrace();
         }
     }
-
 }
