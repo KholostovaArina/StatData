@@ -23,7 +23,7 @@ public class StatIndicators {
         double max = StatUtils.max(data);
         double var = StatUtils.variance(data);
         double sd = sqrt(StatUtils.variance(data));
-        String k_var = String.valueOf(StatUtils.variance(data) * 100 / StatUtils.mean(data))+"%";
+        String k_var = String.valueOf(sqrt(StatUtils.variance(data)) * 100 / StatUtils.mean(data))+"%";
        
         Map<String, Object> results = new HashMap<>();
         results.put("mean", mean);
