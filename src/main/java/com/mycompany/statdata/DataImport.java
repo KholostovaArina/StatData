@@ -2,7 +2,6 @@ package com.mycompany.statdata;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 import javax.swing.JFileChooser;
 import java.io.*;
 import java.util.HashMap;
@@ -14,8 +13,7 @@ public class DataImport {
         Map<String, double[]> resultMap = new HashMap<>();
         
         JFileChooser fileChooser = new JFileChooser();
-        
-        // Показать диалог выбора файла
+
         int returnValue = fileChooser.showOpenDialog(null);
         
         if (returnValue == JFileChooser.APPROVE_OPTION) {

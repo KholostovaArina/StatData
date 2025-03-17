@@ -1,8 +1,6 @@
 package com.mycompany.statdata;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class View {
@@ -20,9 +18,6 @@ public class View {
         frame.setSize(600, 200);  
         frame.setLayout(new GridLayout(3, 1));
 
-//        filePathField = new JTextField();
-//        filePathField.setEditable(false);
-//        
         inputButton = new JButton("Прочитать данные");
         
         processButton = new JButton("Обработать данные");

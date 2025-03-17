@@ -11,7 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 public class Controller {
-    private String inputString = "C:\\Users\\GOSPOGA\\OneDrive\\Рабочий стол\\Лаба_1 образцы данных.xlsx"; 
     private  Map<String, double[]> data = new HashMap<>();
     private  List<Map<String, Object>> statData = new ArrayList<>();
     private  List<Map<String, Object>> covData = new ArrayList<>();
@@ -23,16 +22,8 @@ public class Controller {
         view.inputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                String enteredText = JOptionPane.showInputDialog(view.frame, "Введите ссылку на файл:",
-//                                                                 "Ввод ссылки", JOptionPane.PLAIN_MESSAGE);
-//                
-//                if (enteredText != null && !enteredText.trim().isEmpty()) {
-//                    inputString = enteredText.trim(); 
-//                }
-//                view.filePathField.setText(inputString); 
                 view.inputButton.setEnabled(false);
-                view.processButton.setEnabled(true);
-                
+                view.processButton.setEnabled(true);                
                 data = DataImport.makeHashMapFromFile();           
             }
         });
