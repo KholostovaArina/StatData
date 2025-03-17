@@ -17,16 +17,47 @@ public class StatIndicators {
     }
 
     public static Map<String, Object> calculateStatIndicators(double[] data) {
-        double mean = StatUtils.mean(data);
-        double geomMean = StatUtils.geometricMean(data);
-        int N = data.length;
+        String mean;
+        String geomMean;
+        String var;
+        String sd;
+        String k_var;
+        
+        try {
+            mean = String.valueOf(StatUtils.mean(data));
+        } catch (Exception e) {
+            mean = "-";
+        }
+
+        try {
+            geomMean = String.valueOf(StatUtils.geometricMean(data));
+        } catch (Exception e) {
+            geomMean = "-";
+        }
+
+        int N = data.length; // Длина массива, может быть полезна для других вычислений
         double R = StatUtils.max(data) - StatUtils.min(data);
         double min = StatUtils.min(data);
         double max = StatUtils.max(data);
-        double var = StatUtils.variance(data);
-        double sd = sqrt(var);
-        double k_var = var / mean;
-        
+
+        try {
+            var = String.valueOf(StatUtils.variance(data));
+        } catch (Exception e) {
+            var = "-";
+        }
+
+        try {
+            sd = String.valueOf(sqrt(StatUtils.variance(data)));
+        } catch (Exception e) {
+            sd = "-";
+        }
+
+        try {
+            k_var = String.valueOf(StatUtils.variance(data) * 100 / StatUtils.mean(data))+"%";
+        } catch (Exception e) {
+            k_var = "-";
+        }
+
         Map<String, Object> results = new HashMap<>();
         results.put("mean", mean);
         results.put("geometric mean", geomMean);
@@ -37,7 +68,7 @@ public class StatIndicators {
         results.put("variance", var);
         results.put("standard deviation", sd);
         results.put("K variance", k_var);
-        results.put("Confidence interval", confInterval(data, mean, var, N));
+        results.put("Confidence interval", confInterval(data, StatUtils.mean(data), StatUtils.variance(data), N));
 
         return results;
     }
@@ -54,11 +85,5 @@ public class StatIndicators {
 
         return "[" + lowBorder + ", " + upperBorder + "]";
     }
-    
-//    private static double k_covariance(double[] x, double[] y){
-//        Covariance covariance = new Covariance();
-//        return covariance.covariance(x, y);
-//    }
-            
-            
+
 }

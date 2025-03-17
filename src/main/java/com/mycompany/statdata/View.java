@@ -18,22 +18,22 @@ public class View {
         frame = new JFrame("Интерфейс для создания статистических данных из вашего файла");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600, 200);  
-        frame.setLayout(new GridLayout(4, 1));
+        frame.setLayout(new GridLayout(3, 1));
 
-        filePathField = new JTextField();
-        filePathField.setEditable(false);
-        
+//        filePathField = new JTextField();
+//        filePathField.setEditable(false);
+//        
         inputButton = new JButton("Прочитать данные");
         
         processButton = new JButton("Обработать данные");
         processButton.setEnabled(false);
         
-        writeButton = new JButton("Заисать данные в файл");
+        writeButton = new JButton("Записать данные в файл");
         writeButton.setEnabled(false);
         
         
         frame.add(inputButton);
-        frame.add(filePathField);
+       // frame.add(filePathField);
         frame.add(processButton);
         frame.add(writeButton);
        

@@ -23,17 +23,17 @@ public class Controller {
         view.inputButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String enteredText = JOptionPane.showInputDialog(view.frame, "Введите ссылку на файл:",
-                                                                 "Ввод ссылки", JOptionPane.PLAIN_MESSAGE);
-                
-                if (enteredText != null && !enteredText.trim().isEmpty()) {
-                    inputString = enteredText.trim(); 
-                }
-                view.filePathField.setText(inputString); 
+//                String enteredText = JOptionPane.showInputDialog(view.frame, "Введите ссылку на файл:",
+//                                                                 "Ввод ссылки", JOptionPane.PLAIN_MESSAGE);
+//                
+//                if (enteredText != null && !enteredText.trim().isEmpty()) {
+//                    inputString = enteredText.trim(); 
+//                }
+//                view.filePathField.setText(inputString); 
                 view.inputButton.setEnabled(false);
                 view.processButton.setEnabled(true);
                 
-                data = DataImport.makeHashMapFromFile(inputString);           
+                data = DataImport.makeHashMapFromFile();           
             }
         });
         

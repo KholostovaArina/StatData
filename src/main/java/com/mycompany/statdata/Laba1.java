@@ -1,7 +1,5 @@
 package com.mycompany.statdata;
 
-//import java.util.Map;
-
 
 public class Laba1 {
 
